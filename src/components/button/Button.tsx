@@ -1,22 +1,26 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export type ButtonTypes = 'primary' | 'danger' | 'link' | 'default';
+// export type ButtonTypes = 'primary' | 'danger' | 'link' | 'default';
 
-export type ButtonSize = 'lg' | 'sm';
+// export type ButtonSize = 'lg' | 'sm';
 
-interface ButtonProps {
-  type?: ButtonTypes;
+interface BaseButtonProps {
+  btnType?: 'primary' | 'danger' | 'link' | 'default';
   href?: string;
   disable?: boolean;
   className?: string;
-  size?: ButtonSize;
+  size?: 'lg' | 'sm';
   children: React.ReactNode;
 }
 
+type NativeButtonProps = BaseButtonProps & React.ButtonHTMLAttributes<HTMLElement>;
+type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLElement>;
+export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
+
 export const Button: React.FC<ButtonProps> = (props) => {
   const {
-    type,
+    btnType,
     href,
     disable,
     children,
@@ -26,12 +30,12 @@ export const Button: React.FC<ButtonProps> = (props) => {
   } = props;
 
   const classes = classNames('btn', className, {
-    [`btn-${type}`]: type,
+    [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
-    'disable': (type === 'link') && href
+    'disable': (btnType === 'link') && href
   })
 
-  if (type === 'link' && href) {
+  if (btnType === 'link' && href) {
     return <a
       href={href}
       className={classes}
@@ -51,6 +55,6 @@ export const Button: React.FC<ButtonProps> = (props) => {
 }
 
 Button.defaultProps={
-  type: 'default',
+  btnType: 'default',
   size: 'sm'
 }
