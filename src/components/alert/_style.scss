@@ -2,21 +2,31 @@
   position: relative;
   display: block;
   color: $body-color;
+  padding: 8px;
   white-space: nowrap;
   text-align: left;
   background-image: none;
   border: $alert-border-width solid transparent;
-  
+
   .header {
     display: flex;
     justify-content: space-between;
+
+    .icon-title {
+      margin-bottom: 12px;
+    }
 
     .closeIcon {
       &:hover {
         cursor: pointer;
 
       }
+      
     }
+  }
+
+  .content {
+    font-size: 14px;
   }
 }
 
@@ -29,7 +39,7 @@
 }
 
 .alert-danger {
-  @include alert-style($danger, $danger, $white)
+  @include alert-style(#fff2f0, #ffccc7, $black)
 }
 
 .alert-warning {

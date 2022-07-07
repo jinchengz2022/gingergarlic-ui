@@ -1,16 +1,27 @@
 import React from 'react';
-import { Button } from './components/button'
-import { Alert } from './components/alert'
+import { Menu, MenuItem } from './components/menu'
 
 function App() {
 
   return (
     <div>
-      <Button size='sm' btnType='primary'>Primary button</Button>
-      <Button btnType='danger' disable>Danger button</Button>
-      <Button btnType='link' href='1'>Link button</Button>
-
-      <Alert title='2323' content='123434' alertType='danger'/>
+      <Menu
+        defaultSelectKey={0} 
+        onSelect={(index) => {
+          console.log(index)
+        }}
+        mode='horizontal'
+      >
+        <MenuItem index={0} disabled>
+          123
+        </MenuItem>
+        <MenuItem index={1}>
+          3465
+        </MenuItem>
+        <MenuItem index={2}>
+          567
+        </MenuItem>
+      </Menu>
     </div>
   );
 }
