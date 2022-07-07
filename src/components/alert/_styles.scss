@@ -1,0 +1,37 @@
+.alert {
+  position: relative;
+  display: block;
+  color: $body-color;
+  white-space: nowrap;
+  text-align: left;
+  background-image: none;
+  border: $alert-border-width solid transparent;
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    .closeIcon {
+      &:hover {
+        cursor: pointer;
+
+      }
+    }
+  }
+}
+
+.alert-info {
+  @include alert-style($info, $info, $white)
+}
+
+.alert-success {
+  @include alert-style($success, $success, $white)
+}
+
+.alert-danger {
+  @include alert-style($danger, $danger, $white)
+}
+
+.alert-warning {
+  @include alert-style($warning, $warning, $white)
+}
