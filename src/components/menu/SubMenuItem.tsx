@@ -14,9 +14,11 @@ export interface SubMenuItemProps {
 
 export const SubMenuItem: React.FC<SubMenuItemProps> = ({ index, className, style, children, title }) => {
   const SubmenuContext = useContext(MenuContext);
-  const [openOrClose, setOpenOrClose] = useState(false);
-  const classes = classNames('sub-menu-item', className, {
+  const isOpen = SubmenuContext.mode === 'vertical' && SubmenuContext.defaultOpenMenu?.includes(index);
+  const [openOrClose, setOpenOrClose] = useState(isOpen);
+  const classes = classNames('menu-item', className, {
     'is-active': SubmenuContext.index === index && openOrClose,
+    [`submenu-mode-${SubmenuContext.mode}`]: SubmenuContext.mode
   })
 
   const SubmenuItemClick = () => {
@@ -29,9 +31,7 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({ index, className, styl
     return React.Children.map(children, (child, index) => {
       const childEle = child as FunctionComponentElement<MenuItemProps>;
       if (childEle.type.name === 'MenuItem') {
-        return <ul style={{ display: openOrClose ? 'block' : 'none' }}>
-          {React.cloneElement(childEle, { ...childEle.props })}
-        </ul>
+        return React.cloneElement(childEle, { ...childEle.props })
       }
     })
   }
@@ -41,13 +41,15 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({ index, className, styl
       className={classes}
       style={style}
       key={index}
-      // onClick={SubmenuItemClick}
+    // onClick={SubmenuItemClick}
     >
       <div className='sub-menu-collopse' onClick={() => setOpenOrClose(!openOrClose)}>
         <span>{title}</span>
         {openOrClose ? <UpOutlined style={{ fontSize: 12 }} /> : <DownOutlined style={{ fontSize: 12 }} />}
       </div>
-      {renderChildren()}
+      <ul style={{ display: openOrClose ? 'block' : 'none' }}>
+        {renderChildren()}
+      </ul>
     </li>
   )
 }

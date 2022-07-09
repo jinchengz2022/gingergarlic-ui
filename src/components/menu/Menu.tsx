@@ -13,20 +13,24 @@ interface MenuProps {
   style?: React.CSSProperties;
   className?: string;
   children?: React.ReactNode;
+  defaultOpenMenu?: (string | number)[];
 }
 
 interface MenuContext {
   index: number | string;
   onSelect?: (selectKey: number | string) => void;
+  defaultOpenMenu?: (string | number)[];
+  mode?: MenuMode;
 }
 
-export const MenuContext = createContext<MenuContext>({ index: '1' });
+export const MenuContext = createContext<MenuContext>({ index: '1', mode: 'vertical', defaultOpenMenu: ['1'] });
 
 export const Menu: React.FC<MenuProps> = (props) => {
   const {
     onSelect,
     defaultSelectKey,
     defaultOpenKeys,
+    defaultOpenMenu,
     mode,
     style,
     className,
@@ -44,7 +48,9 @@ if (onSelect) {
 
   const menuDefaultContext: MenuContext = {
     index: currentIndex ?? 0,
-    onSelect: menuSelect
+    onSelect: menuSelect,
+    mode: mode,
+    defaultOpenMenu
   }
 
   const classes = clssNames('menu', className, {

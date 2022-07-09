@@ -32,9 +32,9 @@ function App() {
     <div>
       <Menu
         defaultSelectKey='first'
-        mode='vertical'
-        style={{ width: 200 }}
+        mode='horizontal'
         onSelect={() => {}}
+        defaultOpenMenu={['submenu1']}
       >
         <MenuItem index='first' disabled>
           123
@@ -42,8 +42,13 @@ function App() {
         <MenuItem index='second'>
           3465
         </MenuItem>
-        <SubMenuItem index='submenu' title='navigate'>
-          <MenuItem index={547}>32443</MenuItem>
+        <SubMenuItem index='submenu1' title='navigate'>
+          <MenuItem index='sub1'>sub1</MenuItem>
+          <MenuItem index='sub2'>sub2</MenuItem>
+        </SubMenuItem>
+        <SubMenuItem index='submenu2' title='navigate'>
+          <MenuItem index='sub3'>sub1</MenuItem>
+          <MenuItem index='sub4'>sub2</MenuItem>
         </SubMenuItem>
       </Menu>
     </div>
