@@ -1,5 +1,7 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, FunctionComponentElement, useState } from 'react'
 import clssNames from 'classnames'
+
+import type { MenuItemProps } from './MenuItem'
 
 type MenuMode = 'vertical' | 'horizontal';
 
@@ -33,7 +35,8 @@ export const Menu: React.FC<MenuProps> = (props) => {
   const [currentIndex, setCurrentIndex] = useState(defaultSelectKey);
 
   const menuSelect = (index: number | string) => {
-    if(onSelect) {
+console.log(index);
+if (onSelect) {
       onSelect(index);
       setCurrentIndex(index);
     }
@@ -48,9 +51,23 @@ export const Menu: React.FC<MenuProps> = (props) => {
     [`menu-mode-${mode}`]: mode
   })
 
+  const renderChildren = () => {
+    return React.Children.map(children, (child, index) => {
+      const childElement = child as FunctionComponentElement<MenuItemProps>;
+      const { name } = childElement.type;
+
+      if (name === 'MenuItem' || name === 'SubMenuItem') {
+        return React.cloneElement(childElement, { ...childElement.props })
+      } else {
+        console.error('Warning: Menu children must is MenuItem component');
+      }
+    })
+  }
+
+
   return <ul className={classes} style={style}>
     <MenuContext.Provider value={menuDefaultContext}>
-      {children}
+      {renderChildren()}
     </MenuContext.Provider>
   </ul>
 }

@@ -5,8 +5,8 @@
 
   .menu-item {
     padding: $menu-item-padding-y $menu-item-padding-x;
-    cursor: pointer;
     transition: $menu-transition;
+    cursor: pointer;
 
     &:hover,
     &:focus {
@@ -62,4 +62,39 @@
       border-bottom: 0;
     }
   }
+}
+
+.sub-menu-item {
+  padding: $menu-item-padding-y $menu-item-padding-x;
+  transition: $menu-transition;
+
+  &:hover {
+    color: #389e0d;
+
+    .menu-item {
+      color: #000;
+
+      &.is-active,
+      &:hover {
+        border-left: $menu-item-active-border-width solid #389e0d;
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .sub-menu-collopse {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    li {
+      padding-left: 0;
+
+    }
+  }
+
 }

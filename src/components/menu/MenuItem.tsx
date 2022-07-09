@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import classNames from 'classnames'
 import { MenuContext } from './Menu'
 
-interface MenuItemProps {
+export interface MenuItemProps {
   index: number | string;
   disabled?: boolean;
   className?: string;
@@ -27,12 +27,19 @@ export const MenuItem: React.FC<MenuItemProps> = (props) => {
   })
 
   const menuItemClick = () => {
-    if(menuItemContext.onSelect && !disabled) {
+  console.log({index});
+  if (menuItemContext.onSelect && !disabled) {
       menuItemContext.onSelect(index);
-    }
+console.log(menuItemContext);
+}
   }
 
-  return <li className={classes} key={index} onClick={menuItemClick} style={style}>
+  return <li
+    className={classes}
+    key={index}
+    onClick={menuItemClick}
+    style={style}
+  >
     {children}
   </li>
 }
