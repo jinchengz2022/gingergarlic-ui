@@ -27,11 +27,9 @@ export const MenuItem: React.FC<MenuItemProps> = (props) => {
   })
 
   const menuItemClick = () => {
-  console.log({index});
-  if (menuItemContext.onSelect && !disabled) {
+    if (menuItemContext.onSelect && !disabled) {
       menuItemContext.onSelect(index);
-console.log(menuItemContext);
-}
+    }
   }
 
   return <li

@@ -39,8 +39,7 @@ export const Menu: React.FC<MenuProps> = (props) => {
   const [currentIndex, setCurrentIndex] = useState(defaultSelectKey);
 
   const menuSelect = (index: number | string) => {
-console.log(index);
-if (onSelect) {
+    if (onSelect) {
       onSelect(index);
       setCurrentIndex(index);
     }
@@ -54,7 +53,7 @@ if (onSelect) {
   }
 
   const classes = clssNames('menu', className, {
-    [`menu-mode-${mode}`]: mode
+    [`menu-${mode}`]: mode
   })
 
   const renderChildren = () => {

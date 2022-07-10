@@ -1,14 +1,15 @@
 .menu {
+  display: flex;
+  flex-wrap: wrap;
   padding-left: 0;
+  margin-bottom: 30px;
   list-style: none;
+  border-bottom: $menu-border-width solid $menu-border-color;
 
-  .menu-item {
-    display: flex;
-    align-items: center;
+  >.menu-item {
     padding: $menu-item-padding-y $menu-item-padding-x;
-    transition: $menu-transition;
-    height: 100%;
     cursor: pointer;
+    transition: $menu-transition;
 
     &:hover,
     &:focus {
@@ -23,118 +24,105 @@
 
     &.is-active,
     &:hover {
-      color: #389e0d;
+      color: $menu-item-active-color;
+      border-bottom: $menu-item-active-border-width solid $menu-item-active-color;
+    }
+  }
+
+  .submenu-item {
+    position: relative;
+
+    .submenu-title {
+      display: flex;
+      align-items: center;
     }
 
-    &.is-active {
-      color: #389e0d;
-      background-color: rgba($color: #f6ffed, $alpha: 1.0);
+    .arrow-icon {
+      transition: transform .25s ease-in-out;
+      margin-left: 3px;
+    }
 
+    &:hover {
+      .arrow-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .is-vertical {
+    .arrow-icon {
+      transform: rotate(0deg) !important;
+    }
+  }
+
+  .is-vertical.is-opened {
+    .arrow-icon {
+      transform: rotate(180deg) !important;
+    }
+  }
+
+  .submenu {
+    display: none;
+    list-style: none;
+    padding-left: 0;
+    white-space: nowrap;
+
+    .menu-item {
+      padding: $menu-item-padding-y $menu-item-padding-x;
+      cursor: pointer;
+      transition: $menu-transition;
+      color: $body-color;
+
+      &.is-active,
+      &:hover {
+        color: $menu-item-active-color !important;
+      }
     }
   }
 }
 
-.menu-mode-horizontal {
-  display: flex;
-  flex-wrap: wrap;
-  border-bottom: 1px solid rgba(0, 0, 0, .08);
-
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .menu-item {
+.menu-horizontal {
+  >.menu-item {
     border-bottom: $menu-item-active-border-width solid transparent;
 
-    ul {
-      list-style: none;
-      padding-left: 0;
+    div {
       display: flex;
-      flex-direction: column;
-      position: absolute;
-      margin-top: 12px;
-      background-color: white;
-      box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    &.is-active,
-    &:hover {
-      border-bottom: $menu-item-active-border-width solid #389e0d;
+    .menu-opened {
+      display: block;
     }
+  }
 
+  .submenu {
+    position: absolute;
+    background: $white;
+    z-index: 100;
+    top: calc(100% + 8px);
+    border: $menu-border-width solid $menu-border-color;
+    box-shadow: $submenu-box-shadow;
   }
 }
 
-.menu-mode-vertical {
-  display: flex;
+.menu-vertical {
   flex-direction: column;
-  border-right: 1px solid rgba(0, 0, 0, .08);
+  border-bottom: 0px;
+  margin: 10px 20px;
+  width: 200px;
+  border-right: $menu-border-width solid $menu-border-color;
 
-  .menu-item {
+  >.menu-item {
+
     border-left: $menu-item-active-border-width solid transparent;
 
     &.is-active,
     &:hover {
-      border-left: $menu-item-active-border-width solid #389e0d;
-      border-bottom: 0;
+      border-bottom: 0px;
+      border-left: $menu-item-active-border-width solid $menu-item-active-color;
     }
 
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
 
-    .sub-menu-collopse {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-
-
-      div {
-        padding: 8px 16px 8px 18px;
-      }
-    }
   }
 }
-
-.sub-menu-item {
-  transition: $menu-transition;
-
-  &:hover {
-    color: #389e0d;
-
-    .menu-item {
-      color: #000;
-
-      &.is-active,
-      &:hover {
-        color: #389e0d;
-        border-left: $menu-item-active-border-width solid #389e0d;
-        border-bottom: 0;
-      }
-    }
-  }
-
-
-
-
-
-}
-
-// .submenu-mode-horizontal {
-//   display: flex;
-//   flex-wrap: wrap;
-//   margin-bottom: 30px;
-
-//   .menu-item {
-//     border-bottom: $menu-item-active-border-width solid transparent;
-
-//     &.is-active,
-//     &:hover {
-//       border-bottom: $menu-item-active-border-width solid #389e0d;
-//     }
-//   }
-// }

@@ -16,15 +16,32 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({ index, className, styl
   const SubmenuContext = useContext(MenuContext);
   const isOpen = SubmenuContext.mode === 'vertical' && SubmenuContext.defaultOpenMenu?.includes(index);
   const [openOrClose, setOpenOrClose] = useState(isOpen);
-  const classes = classNames('menu-item', className, {
-    'is-active': SubmenuContext.index === index && openOrClose,
-    [`submenu-mode-${SubmenuContext.mode}`]: SubmenuContext.mode
+  const classes = classNames('menu-item submenu-item', className, {
+    'is-active': SubmenuContext.index === index,
+    'is-open': openOrClose,
+    'is-vertical': SubmenuContext.mode === 'vertical',
   })
+  const subMenuClasses = classNames('submenu', {
+    'menu-opened': openOrClose
+  })
+  let timer: any;
 
-  const SubmenuItemClick = () => {
-    if (SubmenuContext.onSelect) {
-      SubmenuContext.onSelect(index);
-    }
+  const mouseEvent = (e: React.MouseEvent) => {
+    clearTimeout(timer);
+    e.preventDefault();
+    timer = setTimeout(() => {
+      setOpenOrClose(!openOrClose)
+    }, 300);
+  }
+
+  const handleClickOpen = SubmenuContext.mode === 'vertical' ? {
+    onClick: () => setOpenOrClose(!openOrClose)
+  } : {};
+
+  const handleMouseOpen = SubmenuContext.mode === 'vertical' ? {
+  } : {
+    onMouseEnter: mouseEvent,
+    onMouseLeave: mouseEvent
   }
 
   const renderChildren = () => {
@@ -41,13 +58,17 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({ index, className, styl
       className={classes}
       style={style}
       key={index}
-    // onClick={SubmenuItemClick}
+      {...handleMouseOpen}
     >
-      <div className='sub-menu-collopse' onClick={() => setOpenOrClose(!openOrClose)}>
+      <div className='sub-menu-collopse' {...handleClickOpen}>
         <span>{title}</span>
-        {openOrClose ? <UpOutlined style={{ fontSize: 12 }} /> : <DownOutlined style={{ fontSize: 12 }} />}
+        {SubmenuContext.mode === 'vertical' ? (
+          openOrClose ?
+            <UpOutlined style={{ fontSize: 12 }} /> :
+            <DownOutlined style={{ fontSize: 12 }} />
+        ) : null}
       </div>
-      <ul style={{ display: openOrClose ? 'block' : 'none' }}>
+      <ul className={subMenuClasses}>
         {renderChildren()}
       </ul>
     </li>

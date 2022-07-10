@@ -1,0 +1,40 @@
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  list-style-type: none;
+  padding-left: 16px;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+  >.tabs-pane {
+    padding: 8px 16px;
+
+    div:nth-child(1){
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span:nth-child(2) {
+        margin-left: 10px;
+      }
+    }
+
+    div:nth-child(2){
+      position: absolute;
+      left: 16px;
+      top: 42px;
+      padding: 16px;
+      color: #000;
+    }
+
+    &:hover {
+      color: rgb(8, 161, 54);
+    }
+
+    &.is-active {
+      color: rgb(8, 161, 54);
+      border-bottom: 2px solid rgb(8, 161, 54);
+    }
+  }
+}
