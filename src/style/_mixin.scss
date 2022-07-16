@@ -81,3 +81,9 @@
   border-top-left-radius: $raduis;
   border-top-right-radius: $raduis;
 }
+
+@mixin input-size($padding-y, $padding-x, $font-size, $border-raduis) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  border-radius: $border-raduis;
+}

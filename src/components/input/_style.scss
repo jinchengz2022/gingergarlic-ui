@@ -1,0 +1,97 @@
+.input {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  .prepand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    height: 40px;
+    padding: $input-padding-y $input-padding-x;
+    border: $input-border-width solid $input-border-color;
+    background-color: #fafafa;
+    border-right: 0;
+  }
+
+  .append {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    height: 40px;
+    padding: $input-padding-y $input-padding-x;
+    border: $input-border-width solid $input-border-color;
+    background-color: #fafafa;
+    border-left: 0;
+  }
+
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: $input-border-width solid $input-border-color;
+  box-shadow: $input-box-shadow;
+  padding: $input-padding-y $input-padding-x;
+
+  &:focus {
+    color: $input-focus-color;
+    background-color: $input-focus-bg;
+    border-color: $input-focus-border-color;
+    outline: 0;
+    box-shadow: $input-focus-box-shadow;
+  }
+
+  input {
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    color: $input-color;
+    font-size: $input-font-size;
+
+    &:focus {
+      color: none;
+      background-color: none;
+      border-color: none;
+      outline: 0;
+      box-shadow: none;
+    }
+  }
+
+  .appendIcon,
+  .preIcon {
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  ul {
+    position: absolute;
+    list-style-type: none;
+    top: calc(100%);
+    left: -1px;
+    width: calc(100% + 2px);
+    padding: 0 $input-padding-x;
+    border: 1px solid $input-border-color;
+
+    li {
+      padding: 8px;
+
+      &:hover {
+        color: #1890FF;
+      }
+    }
+  }
+}
+
+.input-lg {
+  @include input-size($input-padding-y-lg, $input-padding-x-lg, $input-font-size-lg, $input-border-radius-lg);
+}
+
+.input-sm {
+  @include input-size($input-padding-y-sm, $input-padding-x-sm, $input-font-size-sm, $input-border-radius-sm);
+}
