@@ -82,10 +82,15 @@
       padding: 8px;
 
       &:hover {
+        cursor: pointer;
         color: #1890FF;
       }
     }
   }
+}
+
+.operateKey{
+  color: #1890FF;
 }
 
 .input-lg {
