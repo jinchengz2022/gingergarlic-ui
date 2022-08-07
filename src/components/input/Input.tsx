@@ -1,6 +1,6 @@
 import React, { ChangeEvent, InputHTMLAttributes, useState, useRef } from 'react'
 import classNames from 'classnames'
-import { requestDebounce, useClickOutSide } from '../../utils'
+import { requestDebounce, useListennerEvent } from '../../utils'
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size'> {
   disabled?: boolean;
@@ -17,11 +17,11 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size'> {
   children?: React.ReactNode;
   /** input输入搜索触发条件 */
   searchCondition?: 'auto' | 'click';
+  /** 请求防抖事时间 */
+  debounce?: number;
   onChange?: (...args: any[]) => void;
   /** input请求必须配合searchCondition使用 */
   request?: () => Promise<any[]> | any[];
-  /** 请求防抖事时间 */
-  debounce?: number;
 }
 
 export const Input: React.FC<InputProps> = (props) => {
@@ -52,7 +52,7 @@ export const Input: React.FC<InputProps> = (props) => {
   // 鼠标点击input外取消聚焦并关闭选项框
   const inputRef = useRef<any>()
 
-  useClickOutSide(inputRef, () => setFetchData([]));
+  useListennerEvent(inputRef, 'click', () => setFetchData([]));
 
   /**
    * restProps.value ?? '' 写法说明 ----->>
@@ -174,9 +174,9 @@ export const Input: React.FC<InputProps> = (props) => {
     </ul>
   )
 
-  return <div className={classes} ref={inputRef}>
+  return <div className={classes} ref={inputRef} style={restProps.style}>
     {prepand && <span className='prepand'>{prepand}</span>}
-    <div className='input-wrapper' style={restProps.style}>
+    <div className='input-wrapper' >
       {preIcon && <span className='preIcon'>{preIcon}</span>}
       <input
         disabled={disabled}
