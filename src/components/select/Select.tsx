@@ -1,5 +1,4 @@
 import React, { useState, useRef, ChangeEvent } from 'react'
-import { DownOutlined, CloseCircleFilled, LoadingOutlined } from '@ant-design/icons'
 import classNames from 'classnames'
 
 import { useListennerEvent } from '../../utils'
@@ -107,14 +106,15 @@ export const Select: React.FC<SelectProps> = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
           placeholder={placeholder}
         />
-        {clear && !loading && <CloseCircleFilled
-          style={{ color: '#ced4da' }}
+        {clear && !loading && <span
+          className="gg-close-o"
           onClick={() => {
             setInputValue('');
             Clear(false)
           }} />}
-        {loading && <LoadingOutlined style={{ color: '#ced4da' }} />}
-        {!clear && !loading && <DownOutlined style={{ color: '#ced4da' }} />}
+        {loading && <span className="gg-spinner-alt" />}
+        {!clear && !loading && <span className="gg-chevron-down" />}
+
         {optionsVisiable && selectOptions()}
       </div>
     </div>

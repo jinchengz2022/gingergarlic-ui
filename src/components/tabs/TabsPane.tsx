@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react'
 import classNames from 'classnames'
-import { CloseOutlined } from '@ant-design/icons'
+// import { CloseOutlined } from '@ant-design/icons'
 import { TabsContext } from './Tabs'
 
 interface TabsPaneProps {
@@ -33,7 +33,7 @@ export const TabsPane: React.FC<TabsPaneProps> = (props) => {
     <div>
       <span>{title}</span>
       {
-        tabsPaneContext.type === 'edit' && <CloseOutlined style={{ fontSize: 10 }} onClick={removeNode} />
+        // tabsPaneContext.type === 'edit' && <CloseOutlined style={{ fontSize: 10 }} onClick={removeNode} />
       }
     </div>
     {

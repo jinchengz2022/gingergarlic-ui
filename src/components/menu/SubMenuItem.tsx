@@ -1,6 +1,6 @@
 import React, { FunctionComponentElement, useContext, useState } from 'react';
 import classNames from 'classnames'
-import { DownOutlined, UpOutlined } from '@ant-design/icons'
+// import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import { MenuContext } from './Menu'
 import { MenuItemProps } from './MenuItem'
 
@@ -62,11 +62,11 @@ export const SubMenuItem: React.FC<SubMenuItemProps> = ({ index, className, styl
     >
       <div className='sub-menu-collopse' {...handleClickOpen}>
         <span>{title}</span>
-        {SubmenuContext.mode === 'vertical' ? (
+        {/* {SubmenuContext.mode === 'vertical' ? (
           openOrClose ?
             <UpOutlined style={{ fontSize: 12 }} /> :
             <DownOutlined style={{ fontSize: 12 }} />
-        ) : null}
+        ) : null} */}
       </div>
       <ul className={subMenuClasses}>
         {renderChildren()}
