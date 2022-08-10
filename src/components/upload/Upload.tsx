@@ -1,17 +1,20 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import axios from 'axios'
 
+import { UploadList } from './UploadList'
+import { Button } from '../button'
 interface UploadProps {
   server?: string;
   acceptFileTypes?: string;
   disabled?: boolean;
   multiple?: boolean;
+  isRemove?: boolean;
   beforeUpload?: () => void;
   success?: () => void;
   error?: () => void;
   progress?: () => void;
 }
-interface UploadList {
+export interface FileList {
   name: string;
   uid: string | number;
   size: number;
@@ -20,50 +23,80 @@ interface UploadList {
 }
 
 export const Upload: FC<UploadProps> = (props) => {
-  const { acceptFileTypes, multiple } = props;
-  const [fileList, updateFileList] = useState<UploadList[]>([])
+  const { acceptFileTypes, multiple, isRemove } = props;
+  const [fileList, updateFileList] = React.useState<FileList[]>([]);
+  const fileRef = React.useRef<HTMLInputElement>(null);
+
+  const updateList = (file: FileList) => {
+    updateFileList((pre) => {
+      return pre.map((f) => {
+        if (f.uid === file.uid) {
+          return file;
+        } else {
+          return f;
+        }
+      })
+    })
+  }
+
+  const selectFile = () => {
+    if (fileRef.current) {
+      fileRef.current.click();
+    }
+  }
+
+  const onRemove = (uid: string | number) => {
+    updateFileList(fileList.filter((f) => f.uid !== uid))
+  }
 
   const uploadChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
       const selectedFile = files[0];
-      const _file: UploadList = {
+      const _file: FileList = {
         name: selectedFile.name,
         size: selectedFile.size,
-        uid: selectedFile.lastModified + 'file',
+        uid: Date.now() + 'file',
         percent: 0,
         status: 'uploading'
       }
+      updateFileList((pre) => [_file, ...pre])
       const _formData = new FormData();
       _formData.append(selectedFile.name, selectedFile)
-      const uploadRes = await axios.post('https://jsonplaceholder.typicode.com/posts/', _formData, {
+      try {
+        const uploadRes = await axios.post('https://jsonplaceholder.typicode.com/posts/', _formData, {
         onUploadProgress: (e) => {
           const progress = Math.round((e.loaded * 100) / e.total) || 0;
-          updateFileList([{ ..._file, percent: progress }, ...fileList])
+          updateList({ ..._file, percent: progress });
         },
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
       if (uploadRes) {
-        uploadSuccess((pre: UploadList[]) => [{ ..._file, percent: 100 }, ...pre])
+        updateList({ ..._file, percent: 100, status: 'done' });
+      } else {
+        updateList({ ..._file, percent: 0, status: 'failed' })
+      }
+      } catch (error) {
+        updateList({ ..._file, percent: 0, status: 'failed' })
+        
       }
     }
   }
 
-  const uploadSuccess = (requestRes: any) => {
-    updateFileList([{ ...requestRes, status: 'done' }, ...fileList])
-  }
-
   return (
-    <div>
+    <div style={{ width: 300 }}>
       <input
         type='file'
-        onChange={uploadChange}
+        style={{ display: 'none' }}
+        ref={fileRef}
         accept={acceptFileTypes}
         multiple={multiple}
+        onChange={uploadChange}
       />
-      {fileList.map((li) => <p key={li.name}>{li.name}</p>)}
+      <Button onClick={selectFile}>请选择上传文件</Button>
+      <UploadList list={fileList} isRemove={isRemove} onRemove={onRemove}/>
     </div>
   )
 }
