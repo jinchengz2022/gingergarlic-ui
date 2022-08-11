@@ -5,7 +5,7 @@ function App() {
 
   return (
     <div>
-      <Upload multiple/>
+      <Upload/>
     </div>
   );
 }

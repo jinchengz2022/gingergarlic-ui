@@ -4,13 +4,20 @@ import axios from 'axios'
 import { UploadList } from './UploadList'
 import { Button } from '../button'
 interface UploadProps {
+  /**上传地址 */
   server?: string;
+  /**可上传文件类型 */
   acceptFileTypes?: string;
+  /**是否禁用 */
   disabled?: boolean;
+  /**是否支持多选 */
   multiple?: boolean;
+  /**是否支持删除已上传文件 */
   isRemove?: boolean;
+  /**文件上传之前的动作 */
   beforeUpload?: () => void;
-  success?: () => void;
+  /**上传成功的回调函数 */
+  onSuccess?: (file: FileList) => void;
   error?: () => void;
   progress?: () => void;
 }
@@ -23,7 +30,7 @@ export interface FileList {
 }
 
 export const Upload: FC<UploadProps> = (props) => {
-  const { acceptFileTypes, multiple, isRemove } = props;
+  const { acceptFileTypes, multiple, isRemove, onSuccess } = props;
   const [fileList, updateFileList] = React.useState<FileList[]>([]);
   const fileRef = React.useRef<HTMLInputElement>(null);
 
@@ -51,6 +58,7 @@ export const Upload: FC<UploadProps> = (props) => {
 
   const uploadChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
+    if(!multiple && fileList.length === 1) return;
     if (files) {
       const selectedFile = files[0];
       const _file: FileList = {
@@ -73,8 +81,9 @@ export const Upload: FC<UploadProps> = (props) => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      if (uploadRes) {
+      if (uploadRes && onSuccess) {
         updateList({ ..._file, percent: 100, status: 'done' });
+        onSuccess({ ..._file, percent: 100, status: 'done' })
       } else {
         updateList({ ..._file, percent: 0, status: 'failed' })
       }
