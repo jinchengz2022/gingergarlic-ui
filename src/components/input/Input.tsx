@@ -1,4 +1,4 @@
-import React, { ChangeEvent, InputHTMLAttributes, useState, useRef } from 'react'
+import React, { ChangeEvent, InputHTMLAttributes, useState, useRef, useEffect } from 'react'
 import classNames from 'classnames'
 import { requestDebounce, useListennerEvent } from '../../utils'
 
@@ -44,7 +44,7 @@ export const Input: React.FC<InputProps> = (props) => {
   // 搜索数据列表
   const [fetchData, setFetchData] = useState<string[]>([]);
   // input value
-  const [inputValue, setValue] = useState<any>(restProps.value ?? '');
+  const [inputValue, setValue] = useState(restProps.value || '');
   // 搜索请求状态
   const [searchLoading, SearchLoading] = useState(false);
   // 选项框键盘操作值
@@ -52,17 +52,9 @@ export const Input: React.FC<InputProps> = (props) => {
   // 鼠标点击input外取消聚焦并关闭选项框
   const inputRef = useRef<any>()
 
-  useListennerEvent(inputRef, 'click', () => setFetchData([]));
+  useEffect(() => { setValue(restProps.value || '') }, [restProps.value])
 
-  /**
-   * restProps.value ?? '' 写法说明 ----->>
-   * 
-   * react-dom.development.js:86 Warning: 
-   * A component is changing an uncontrolled input to be controlled. 
-   * This is likely caused by the value changing from undefined to a defined value, 
-   * which should not happen. Decide between using a controlled or uncontrolled input
-   *  element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components
-   */
+  useListennerEvent(inputRef, 'click', () => setFetchData([]));
 
   const classes = classNames('input', className, {
     [`input-${size}`]: size,
@@ -174,6 +166,11 @@ export const Input: React.FC<InputProps> = (props) => {
     </ul>
   )
 
+  const inputChange = (e: ChangeEvent<HTMLInputElement>) => { 
+    if(onChange) { onChange(e) };
+    setValue(e.target.value);
+  }
+
   return <div className={classes} ref={inputRef} style={restProps.style}>
     {prepand && <span className='prepand'>{prepand}</span>}
     <div className='input-wrapper' >
@@ -181,10 +178,9 @@ export const Input: React.FC<InputProps> = (props) => {
       <input
         disabled={disabled}
         {...restProps}
-        onChange={searchCondition === 'auto' ? autoCompleteChange : onChange}
+        onChange={searchCondition === 'auto' ? autoCompleteChange : inputChange}
         value={inputValue}
         onKeyDown={keyboardDown}
-        // onFocus={inputRef ? (e: any) => getOption(e.target.value) : undefined}
       >
         {children}
       </input>
@@ -194,8 +190,4 @@ export const Input: React.FC<InputProps> = (props) => {
     </div>
     {append && <span className='append'>{append}</span>}
   </div>
-}
-
-Input.defaultProps = {
-  onChange: () => {}
 }
