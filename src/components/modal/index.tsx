@@ -1,55 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
+import classnames from 'classnames'
 
 interface ModalProps {
-    visible: boolean;
-    children?: React.ReactNode;
-    onOk?: () => void;
-    onCannel?: () => void;
+    visible?: boolean;
+    title?: string;
 }
 
-export const Modal: React.FC<ModalProps> = (props) => {
-    const { visible,children, onOk=()=>{
-        setVisibleState(false);
-    }, onCannel=()=>{
-        setVisibleState(false);
-    } } = props;
-    const [visibleState, setVisibleState] = useState(visible);
-    const divRef: any = useRef();
-
-    const add = (e: any) => {
-        if (!(divRef.current.offsetLeft < e.clientX
-            && e.clientX < (divRef.current.offsetLeft + divRef.current.offsetWidth)
-            && divRef.current.offsetTop < e.clientY
-            && e.clientY < (divRef.current.offsetTop + divRef.current.offsetHeight))) {
-                setVisibleState(false);
-        }
-    }
-
-    useEffect(() => {
-        document.addEventListener('mouseup', add);
-        return () => {
-            document.removeEventListener('mouseup', add)
-        }
-    }, [])
-
-    const styleProps: any = {
-        width: '500px',
-        height: '300px',
-        border: '1px solid red',
-        display: `${visibleState ? 'block' : 'none'}`
-    }
-
+const Modal: React.FC<ModalProps> = (props) => {
+    const { visible, title } = props;
     return (
-        <div
-            ref={divRef}
-            style={styleProps}>
-            <a>x</a>
-            <div>
-                {children}
+        <div className={classnames('modalmasklayer', { modalvisible: !visible })}>
+            <div className={classnames('modalson')}>
+                <div className={classnames('modaltitle')}>
+                    <span className={classnames('mtitlestring')}>{title || 'Modal确认框'}</span>
+                    <span className={classnames('modalcloseIcon')}>x</span>
+                </div>
+                <div>content</div>
+                <div>footer</div>
             </div>
-            <button onClick={onOk}>确认</button>
-            <button onClick={onCannel}>取消</button>
         </div>
     )
 }
+
+export default Modal
 
