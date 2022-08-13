@@ -120,3 +120,5 @@ export const Select: React.FC<SelectProps> = ({
     </div>
   )
 }
+
+Select.defaultProps = { style: { width: 200 } };

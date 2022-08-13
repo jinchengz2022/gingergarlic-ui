@@ -195,3 +195,7 @@ export const Input: React.FC<InputProps> = (props) => {
     {append && <span className='append'>{append}</span>}
   </div>
 }
+
+Input.defaultProps = {
+  onChange: () => {}
+}

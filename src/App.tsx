@@ -1,11 +1,18 @@
 import React from 'react';
-import { Upload } from '../src/components'
+import { Form, Input, Select, FormItem } from '../src/components'
 
 function App() {
 
   return (
     <div>
-      <Upload/>
+      <Form>
+        <FormItem label='name'>
+          <Input/>
+        </FormItem>
+        <FormItem label='age'>
+          <Select options={[{value: '10', label: '10'}]}/>
+        </FormItem>
+      </Form>
     </div>
   );
 }

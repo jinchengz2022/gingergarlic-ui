@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import axios from 'axios'
 
 import { UploadList } from './UploadList'
+import { Drag } from './Drag'
 import { Button } from '../button'
 interface UploadProps {
   /**上传地址 */
@@ -14,6 +15,8 @@ interface UploadProps {
   multiple?: boolean;
   /**是否支持删除已上传文件 */
   isRemove?: boolean;
+  /**拖拽上传*/
+  drag?: boolean;
   /**文件上传之前的动作 */
   beforeUpload?: () => void;
   /**上传成功的回调函数 */
@@ -30,7 +33,7 @@ export interface FileList {
 }
 
 export const Upload: FC<UploadProps> = (props) => {
-  const { acceptFileTypes, multiple, isRemove, onSuccess } = props;
+  const { acceptFileTypes, multiple, isRemove, drag,  onSuccess } = props;
   const [fileList, updateFileList] = React.useState<FileList[]>([]);
   const fileRef = React.useRef<HTMLInputElement>(null);
 
@@ -56,8 +59,8 @@ export const Upload: FC<UploadProps> = (props) => {
     updateFileList(fileList.filter((f) => f.uid !== uid))
   }
 
-  const uploadChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
+  const uploadChange = async (file: any) => {
+    const files = file;
     if(!multiple && fileList.length === 1) return;
     if (files) {
       const selectedFile = files[0];
@@ -102,9 +105,15 @@ export const Upload: FC<UploadProps> = (props) => {
         ref={fileRef}
         accept={acceptFileTypes}
         multiple={multiple}
-        onChange={uploadChange}
+        onChange={(e) => uploadChange(e.target.files)}
       />
-      <Button onClick={selectFile}>请选择上传文件</Button>
+      {
+        drag ? (
+          <Drag uploadChange={(file: any) => uploadChange(file)}/>
+        ) : (
+          <Button onClick={selectFile}>请选择上传文件</Button>
+        )
+      }
       <UploadList list={fileList} isRemove={isRemove} onRemove={onRemove}/>
     </div>
   )

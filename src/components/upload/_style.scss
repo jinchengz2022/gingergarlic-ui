@@ -28,6 +28,22 @@
   }
 }
 
+.upload-drag {
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  line-height: 200px;
+  width: 200px;
+  height: 200px;
+  background-color: rgba(234, 229, 229, 0.5);
+  color: #b9b9b9;
+  border: 2px dotted rgb(234, 229, 229);
+
+  &.dragOver {
+  border: 2px dotted #1890ff;
+  }
+}
+
 .gg-software-download {
   box-sizing: border-box;
   position: relative;
