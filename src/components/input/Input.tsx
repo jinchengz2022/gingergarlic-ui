@@ -177,7 +177,7 @@ export const Input: React.FC<InputProps> = (props) => {
       {preIcon && <span className='preIcon'>{preIcon}</span>}
       <input
         disabled={disabled}
-        {...restProps}
+        // {...restProps}
         onChange={searchCondition === 'auto' ? autoCompleteChange : inputChange}
         value={inputValue}
         onKeyDown={keyboardDown}

@@ -6,7 +6,7 @@ interface ModalProps {
     title?: string;
 }
 
-const Modal: React.FC<ModalProps> = (props) => {
+export const Modal: React.FC<ModalProps> = (props) => {
     const { visible, title } = props;
     return (
         <div className={classnames('modalmasklayer', { modalvisible: !visible })}>
@@ -22,5 +22,4 @@ const Modal: React.FC<ModalProps> = (props) => {
     )
 }
 
-export default Modal
 

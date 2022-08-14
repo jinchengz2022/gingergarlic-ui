@@ -14,11 +14,31 @@
     div:nth-child(2) {
       flex-basis: 90%;
     }
+
+    &.form-item-label-isValidated::before {
+      margin-right: 4px;
+      line-height: 2;
+      content: "*";
+      color: #f00;
+    }
   }
 
-  .form-item-isValid {
-    margin-top: 2px;
-    font-size: 14px;
-    color: #f00;
+  .form-item-ele {
+
+    &.form-item-isValidated {
+      .input-wrapper {
+        border: 1px solid #f00;
+      }
+
+      .select-wrapper {
+        border: 1px solid #f00;
+      }
+    }
+
+    .form-item-isValid {
+      margin-top: 2px;
+      font-size: 14px;
+      color: #f00;
+    }
   }
 }
