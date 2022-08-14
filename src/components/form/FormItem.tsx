@@ -5,7 +5,7 @@ import { FormContext } from './Form'
 import { FormValue } from '../../utils'
 
 export interface FormItemProps extends Omit<FormValue, 'isValidated' | 'message'> {
-  children?: React.ReactElement;
+  children?: (({ values }: { values: any }) => React.ReactElement) | React.ReactElement;
 }
 
 export const FormItem: FC<FormItemProps> = (props) => {
@@ -44,8 +44,8 @@ export const FormItem: FC<FormItemProps> = (props) => {
       // 需验证字段时为空自动飘红
       const isValidated = rules?.some((r) => r.required) && value === '';
       // 存在自定义校验传入规则&输入值
-      if(rules?.[0]?.validator) {
-        rules?.[0]?.validator(rules, value)        
+      if (rules?.[0]?.validator) {
+        rules?.[0]?.validator(rules, value)
       }
       dispatch({
         type: 'update', name,
@@ -56,7 +56,7 @@ export const FormItem: FC<FormItemProps> = (props) => {
     }
   }
 
-  const child = children as React.ReactElement;
+  const child = typeof children === 'function' ? children({values: formStore}) : children as  React.ReactElement;
 
   // 将onchange 以及 value添加到该组件属性上
   const cloneChild = React.cloneElement(

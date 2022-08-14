@@ -22,6 +22,11 @@ export type FormValue = {
 };
 
 export type FormState = Record<string, FormValue>;
+export interface FormInstance {
+  getFieldsValue: () => any;
+  reSetFieldsValue: () => any;
+  setFieldsValue: () => any;
+}
 
 interface FormAction {
   name: string;

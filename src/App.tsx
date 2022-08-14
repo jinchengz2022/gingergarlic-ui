@@ -3,17 +3,9 @@ import { Form, Input, Select, FormItem } from '../src/components'
 
 function App() {
 
-  const sub = (values: any) => {
-    console.log(values, 'sssss');
-  }
-
-  const subErr = (values: any, error: any) => {
-    console.log(values, 'err', error);
-  }
-
   return (
     <div>
-      <Form onFinished={sub} onFinishedField={subErr}>
+      <Form>
         <FormItem
           label='name'
           name='name'
@@ -27,7 +19,7 @@ function App() {
             }
           ]}
         >
-          <Input />
+          {(values) => <Input />}
         </FormItem>
         <FormItem label='age'>
           <Select options={[{ value: '10', label: '10' }]} />

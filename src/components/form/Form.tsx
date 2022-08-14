@@ -1,10 +1,11 @@
 import React, { ReactNode, FormHTMLAttributes, FC, FormEvent } from 'react';
 import { useStore } from '../../utils'
-
+import type { FormInstance } from '../../utils'
 export interface MyFormProps extends Omit<FormHTMLAttributes<HTMLElement>, 'children'> {
   children?: ReactNode;
   onFinished?: (values: any) => void;
   onFinishedField?: (values: any, errors: any) => void;
+  useForm?: () => { form: FormInstance };
 }
 type FormContextValue = ReturnType<typeof useStore>
 export const FormContext = React.createContext<FormContextValue>({} as FormContextValue)
