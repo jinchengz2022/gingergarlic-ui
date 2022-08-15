@@ -28,7 +28,7 @@ export interface FormInstance {
   setFieldsValue: () => any;
 }
 
-interface FormAction {
+export interface FormAction {
   name: string;
   value: FormValue;
   type: 'add' | 'update' | 'validate';

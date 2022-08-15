@@ -1,13 +1,12 @@
-export * from './Form'
-export * from './FormItem'
+import { FC } from 'react';
+import { Form as OriginForm } from './Form'
+import type { MyFormProps } from './Form'
+import type { FormItemProps } from './FormItem'
+import { FormItem } from './FormItem'
 
-// import { Form as OriginForm } from './Form'
-// import type { FormProps } from './Form'
-// import type { FormItemProps } from './FormItem'
-// import { FormItem } from './FormItem'
-// import { ReactNode } from 'react';
+type FormType = FC<MyFormProps> & { Item: FC<FormItemProps> };
 
-// type FormType = typeof OriginForm & { Item?: typeof FormItem };
+const Form = OriginForm as FormType;
+Form.Item = FormItem;
 
-// export const Form = OriginForm as FormType;
-// Form.Item = FormItem;
+export default Form;

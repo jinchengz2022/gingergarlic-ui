@@ -1,12 +1,12 @@
 import React from 'react';
-import { Form, Input, Select, FormItem } from '../src/components'
+import { Form, Input, Select } from '../src/components'
 
 function App() {
 
   return (
     <div>
       <Form>
-        <FormItem
+        <Form.Item
           label='name'
           name='name'
           rules={[
@@ -20,13 +20,13 @@ function App() {
           ]}
         >
           {(values) => <Input />}
-        </FormItem>
-        <FormItem label='age'>
+        </Form.Item>
+        <Form.Item label='age'>
           <Select options={[{ value: '10', label: '10' }]} />
-        </FormItem>
-        <FormItem name='checked'>
+        </Form.Item>
+        <Form.Item name='checked'>
           <button type='submit'>submit</button>
-        </FormItem>
+        </Form.Item>
       </Form>
     </div>
   );

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "module": "ESNext",
+    "target": "ES2015",
+    "declaration": true,
+    "jsx": "react",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true
+  }, 
+  "include": [
+    "src"
+  ],
+  "exclude": []
+}
