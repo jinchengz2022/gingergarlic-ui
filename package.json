@@ -1,6 +1,6 @@
 {
   "name": "gingergarlic",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "license": "MIT",
   "keywords": [
@@ -44,7 +44,8 @@
     "build-css": "node-sass ./src/style/index.scss ./dist/index.css",
     "build": "pnpm clean && pnpm build-ts && pnpm build-css",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepublish": "pnpm build"
   },
   "eslintConfig": {
     "extends": [
