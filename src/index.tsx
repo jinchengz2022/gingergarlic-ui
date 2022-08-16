@@ -1,4 +1,4 @@
-import './styles/index.scss'
+import './style/index.css'
 
 export * from './components/alert'
 export * from './components/menu'

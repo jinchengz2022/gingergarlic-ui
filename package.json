@@ -1,6 +1,6 @@
 {
   "name": "gingergarlic",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": false,
   "license": "MIT",
   "keywords": [
@@ -28,7 +28,7 @@
     "start": "react-scripts start",
     "clean": "rimraf ./dist",
     "build-ts": "pnpm clean && tsc -p tsconfig.build.json",
-    "build-css": "node-sass ./src/style/index.scss ./dist/style/index.scss",
+    "build-css": "node-sass ./src/style/index.scss ./dist/style/index.css",
     "build": "pnpm clean && pnpm build-ts && pnpm build-css",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
