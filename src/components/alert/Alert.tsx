@@ -10,6 +10,7 @@ interface AlertProps {
   title?: string | undefined;
   content: string;
   icon?: React.ReactNode | undefined;
+  onClose?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Alert: React.FC<AlertProps> = (props) => {

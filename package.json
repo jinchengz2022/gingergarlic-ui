@@ -32,7 +32,7 @@
     "build": "pnpm clean && pnpm build-ts && pnpm build-css",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepublish": "pnpm build"
+    "prepublishOnly": "pnpm build"
   },
   "eslintConfig": {
     "extends": [
