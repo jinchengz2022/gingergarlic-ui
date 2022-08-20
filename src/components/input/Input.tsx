@@ -13,6 +13,8 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size'> {
   prepand?: string | React.ReactNode;
   /** input后缀 */
   append?: string | React.ReactNode;
+  /** 允许清空 */
+  allowClear?: boolean | React.ReactNode;
   className?: string;
   children?: React.ReactNode;
   /** input输入搜索触发条件 */
@@ -36,6 +38,7 @@ export const Input: React.FC<InputProps> = (props) => {
     children,
     searchCondition,
     debounce,
+    allowClear,
     onChange,
     request,
     ...restProps
@@ -177,7 +180,7 @@ export const Input: React.FC<InputProps> = (props) => {
       {preIcon && <span className='preIcon'>{preIcon}</span>}
       <input
         disabled={disabled}
-        // {...restProps}
+        {...restProps}
         onChange={searchCondition === 'auto' ? autoCompleteChange : inputChange}
         value={inputValue}
         onKeyDown={keyboardDown}

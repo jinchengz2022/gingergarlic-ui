@@ -10,7 +10,7 @@ interface AlertProps {
   title?: string | undefined;
   content: string;
   icon?: React.ReactNode | undefined;
-  onClose?: React.MouseEventHandler<HTMLButtonElement>;
+  onClose?: () => void; // React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Alert: React.FC<AlertProps> = (props) => {
@@ -20,7 +20,8 @@ export const Alert: React.FC<AlertProps> = (props) => {
     close,
     title,
     content,
-    icon
+    icon,
+    onClose
   } = props;
 
   const alertRef = useRef<any>();
@@ -31,6 +32,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
 
   const closeAlert = () => {
     alertRef?.current?.remove();
+    onClose?.();
   }
 
   return <div className={classes} ref={alertRef}>

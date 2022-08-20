@@ -5,7 +5,7 @@ import type { MenuItemProps } from './MenuItem'
 
 type MenuMode = 'vertical' | 'horizontal';
 
-interface MenuProps {
+export interface MenuProps {
   onSelect?: (selectKey: number | string) => void; // 选择项
   defaultSelectKey?: number | string; // 默认选择项
   defaultOpenKeys?: number | string; // 默认选择项
