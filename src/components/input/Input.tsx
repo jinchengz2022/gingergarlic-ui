@@ -85,6 +85,7 @@ export const Input: React.FC<InputProps> = (props) => {
           setValue(fetchData[keyboardIndex]);
           setFetchData([]);
           setKeyboardIndex(-1);
+          restProps.onKeyDown?.(e);
         }
         break;
       case 'Escape':
@@ -180,10 +181,10 @@ export const Input: React.FC<InputProps> = (props) => {
       {preIcon && <span className='preIcon'>{preIcon}</span>}
       <input
         disabled={disabled}
-        {...restProps}
         onChange={searchCondition === 'auto' ? autoCompleteChange : inputChange}
         value={inputValue}
         onKeyDown={keyboardDown}
+        {...restProps}
       >
         {children}
       </input>

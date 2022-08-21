@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import { useListennerEvent } from '../../utils'
 
-type Options = {
+export type Options = {
   value: string | number;
   label: string | number;
   disabled?: boolean;
@@ -26,6 +26,7 @@ interface SelectProps {
   showSearch?: boolean;
   /** 通过请求查询选项*/
   request?: () => Options | Promise<Options>;
+  onSelect?: (value: string | number) => void;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -37,12 +38,13 @@ export const Select: React.FC<SelectProps> = ({
   style,
   defaultValue,
   allowClear,
-  request
+  request,
+  onSelect
 }) => {
   /**下拉框展示 */
-  const [optionsVisiable, OptionsVisiable] = useState(false);
+  const [optionsVisiable, updateOptionsVisiable] = useState(false);
   /**清除按钮 */
-  const [clear, Clear] = useState(false);
+  const [clear, SetClear] = useState(false);
   /**输入值 */
   const [inputValue, setInputValue] = useState<string | number>(defaultValue ?? '');
   /**下拉框选项 */
@@ -50,7 +52,7 @@ export const Select: React.FC<SelectProps> = ({
   /**request存在时搜索状态 */
   const [loading, setLoading] = useState(false);
   const selectRef = useRef<any>();
-  useListennerEvent(selectRef, 'click', () => OptionsVisiable(false));
+  useListennerEvent(selectRef, 'click', () => updateOptionsVisiable(false));
 
   const classes = classNames('select', className, {
     [`select-disabled`]: disabled
@@ -65,8 +67,9 @@ export const Select: React.FC<SelectProps> = ({
             <div
               key={option.value}
               onClick={() => {
-                setInputValue(option.label)
-                OptionsVisiable(false)
+                setInputValue(option.label);
+                onSelect?.(option.value);
+                updateOptionsVisiable(false);
               }}
               style={{
                 backgroundColor: option.label === inputValue ? '#e6f7ff' : option.disabled ? 'unset' : 'none',
@@ -87,8 +90,8 @@ export const Select: React.FC<SelectProps> = ({
       <div
         className="select-wrapper"
         ref={selectRef}
-        onMouseMove={() => allowClear && Clear((inputValue !== '' && allowClear) ? true : false)}
-        onMouseLeave={() => allowClear && Clear(false)}
+        onMouseMove={() => allowClear && SetClear((inputValue !== '' && allowClear) ? true : false)}
+        onMouseLeave={() => allowClear && SetClear(false)}
       >
         <input
           type="text"
@@ -100,7 +103,7 @@ export const Select: React.FC<SelectProps> = ({
               setLoading(false);
               setOptionsData(res);
             }
-            OptionsVisiable(!optionsVisiable)
+            updateOptionsVisiable(!optionsVisiable)
           }}
           value={inputValue}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
@@ -110,10 +113,10 @@ export const Select: React.FC<SelectProps> = ({
           className="gg-close-o"
           onClick={() => {
             setInputValue('');
-            Clear(false)
+            SetClear(false)
           }} />}
         {loading && <span className="gg-spinner-alt" />}
-        {!clear && !loading && <span className="gg-chevron-down" />}
+        {!clear && !loading && <span className="gg-chevron-down" onClick={() => updateOptionsVisiable(!optionsVisiable)} />}
 
         {optionsVisiable && selectOptions()}
       </div>
