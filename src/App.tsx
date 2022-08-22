@@ -1,10 +1,14 @@
 import React from 'react';
-import { Pagination } from './components'
+import { Steps } from './components'
 
 function App() {
 
   return (
     <div>
+      <Steps>
+        <Steps.Step>111</Steps.Step>
+        <Steps.Step>222</Steps.Step>
+      </Steps>
     </div>
   );
 }
