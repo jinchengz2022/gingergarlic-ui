@@ -5,13 +5,21 @@ import { Select, Options } from '../select'
 import { Input } from '../input'
 
 export interface PaginationProps {
+  /** 总条数 */
   total: number;
+  /** 每页条数 */
   pageSize?: number;
+  /** 当前页数 */
   current?: number;
+  /** 默认当前页数 */
   defaultCurrent?: number;
+  /** 是否展示可跳转 */
   showJumper?: boolean;
+  /** 是否展示切换每页条数选项 */
   showSizeChange?: boolean;
+  /** 是否展示总条数 */
   showTotal?: boolean;
+  /** 更改每页条数下拉框 */
   pageSizeOptions?: Options;
   onChange?: (current: number, pageSize: number) => void;
 }
