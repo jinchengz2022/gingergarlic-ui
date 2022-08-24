@@ -37,7 +37,6 @@ $finish-color: #1890ff;
   &.step-error {
     border: 1px solid $error-color;
     color: $error-color;
-    border: none;
   }
 
   &.step-finish {
@@ -89,19 +88,19 @@ $finish-color: #1890ff;
     background-color: $finish-color;
   }
 
-  &.line-wait::after {
+  &.step-line-wait::after {
     background-color: $line-wait-color;
   }
 
-  &.line-error::after {
+  &.step-line-error::after {
     background-color: $error-color;
   }
 
-  &.line-finish::after {
-    background-color: $finish-color;
-  }
+  // &.step-line-finish::after {
+  //   background-color: $finish-color;
+  // }
 
-  &.line-process::after {
-    background-color: $line-wait-color;
-  }
+  // &.step-line-process::after {
+  //   background-color: $line-wait-color;
+  // }
 }
