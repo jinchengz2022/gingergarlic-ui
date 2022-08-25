@@ -28,14 +28,7 @@ export const Step: FC<StepProps> = props => {
   const [stepCurrent, updateCurrent] = React.useState(current ?? 1);
   // const [stepState, updateState] = React.useState(state);
 
-  const stepStateClasses = classNames('step-state', {
-    'step-finish': index! + 1 < stepCurrent,
-    'step-process': (index! + 1 === stepCurrent) ||
-      (stepCurrent === 1) ||
-      (stepCurrent === childrenLen),
-    'step-error': state === 'error',
-    'step-wait': index! + 1 > stepCurrent,
-  })
+  const stepStateClasses = classNames('step-state')
 
   const stepDescClasses = classNames('step-desc', {
     'step-desc-error': state === 'error',
@@ -58,9 +51,55 @@ export const Step: FC<StepProps> = props => {
     updateCurrent(index! + 1);
   }
 
+
+  const cur = React.useMemo(() => {
+    const a: Record<any, boolean> = {
+      'step-finish': state === 'error' ? false : index! + 1 < stepCurrent,
+      'step-process': state === 'error' ? false : (index! + 1 === current),
+      'step-error': state === 'error',
+      'step-wait': state === 'error' ? false : index! + 1 > stepCurrent,
+    };
+    console.log(a);
+
+    const curState = Object.keys(a).filter((s) => a[s] ?? s);
+    return curState
+  }, [stepCurrent])
+
+  const statusObject: any = {
+    'step-finish': {
+      color: '#fff',
+      backgroundColor: '#1890ff'
+    },
+    'step-process': {
+      border: '1px solid #1890ff',
+      color: '#1890ff'
+    },
+    'step-error': {
+      border: '1px solid #f00',
+      color: '#f00'
+    },
+    'step-wait': {
+      border: '1px solid rgba(0, 0, 0, .25)',
+      color: 'rgba(0, 0, 0, .25)'
+    }
+  }
+  console.log(cur);
+
+  // TODO: 把子元素写成数组形式，current改变才能触发其他元素改变
+
   return (
     <div className='step'>
-      {icon ?? <div className={stepStateClasses} onClick={changeStep}>{index! + 1}</div>}
+      {icon ?? <div
+        className={stepStateClasses}
+        onClick={changeStep}
+        style={{
+          border: statusObject[cur[0]]?.border,
+          color: statusObject[cur[0]]?.color,
+          backgroundColor: statusObject[cur[0]]?.backgroundColor,
+        }}
+      >
+        {index! + 1}
+      </div>}
       <div className='step-wrapper'>
         <div className={stepTitleClasses}>{title}</div>
         <div className={stepDescClasses}>{description}</div>
