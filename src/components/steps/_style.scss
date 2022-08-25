@@ -3,6 +3,10 @@ $wait-color: rgba(0, 0, 0, .25);
 $line-wait-color: rgba(0, 0, 0, .06);
 $finish-color: #1890ff;
 
+*{
+  user-select: none;
+}
+
 .steps {
   display: flex;
   align-items: center;
@@ -56,17 +60,36 @@ $finish-color: #1890ff;
 .step-desc {
   position: absolute;
   max-width: 140px;
+  font-size: 14px;
   white-space: normal;
-  color: $wait-color;
+  color: #000;
+
+  &.step-desc-wait {
+    color: $wait-color;
+  }
+
+  &.step-desc-finish {
+    color: $wait-color;
+  }
+
+  &.step-desc-error {
+    color: $error-color;
+  }
 }
 
 .step-title {
   position: relative;
-  padding-right: 16px;
-  line-height: 32px;
   display: inline-block;
+  padding-right: 16px;
+  font-size: 16px;
+  line-height: 32px;
+  color: #000;
 
   &.step-title-wait {
+    color: $wait-color;
+  }
+
+  &.step-title-finish {
     color: $wait-color;
   }
 

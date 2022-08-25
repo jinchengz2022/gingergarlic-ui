@@ -23,7 +23,7 @@ export const Steps: FC<StepsProps> = props => {
       const { name } = curNode.type;
       if (name === 'Step') {
         return React.cloneElement(curNode, {
-          ...curNode.props, defaultCurrent, index, childrenLen, current
+          ...curNode.props, defaultCurrent, index, childrenLen, current, onChange
         })
       } else {
         console.error('Steps children must be Step Component!')
