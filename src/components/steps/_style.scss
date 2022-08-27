@@ -14,8 +14,7 @@ $finish-color: #1890ff;
 }
 
 .step {
-  display: inline-block;
-  align-items: center;
+  display: flex;
   flex: 1;
   padding-left: 20px;
   overflow: hidden;
@@ -29,52 +28,22 @@ $finish-color: #1890ff;
   width: 48px;
   height: 48px;
   margin-right: 8px;
-  border: 1px solid $finish-color;
   border-radius: 50px;
-  color: $finish-color;
-
-  &.step-wait {
-    border: 1px solid $wait-color;
-    color: $wait-color;
-  }
-
-  &.step-error {
-    border: 1px solid $error-color;
-    color: $error-color;
-  }
-
-  &.step-finish {
-    background-color: $finish-color;
-    color: #fff;
-    border: none;
-  }
 }
 
 .step-wrapper {
-  display: inline-block;
-  vertical-align: top;
+  // display: inline-block;
+  // vertical-align: top;
   margin-top: 12px;
-  white-space: nowrap;
+  // white-space: nowrap;
 }
 
 .step-desc {
-  position: absolute;
+  // position: absolute;
   max-width: 140px;
   font-size: 14px;
   white-space: normal;
   color: #000;
-
-  &.step-desc-wait {
-    color: $wait-color;
-  }
-
-  &.step-desc-finish {
-    color: $wait-color;
-  }
-
-  &.step-desc-error {
-    color: $error-color;
-  }
 }
 
 .step-title {
@@ -84,22 +53,6 @@ $finish-color: #1890ff;
   font-size: 16px;
   line-height: 32px;
   color: #000;
-
-  &.step-title-wait {
-    color: $wait-color;
-  }
-
-  &.step-title-finish {
-    color: $wait-color;
-  }
-
-  &.step-title-error {
-    color: $error-color;
-  }
-
-  // &.step-title-finish {
-    // color: #fff;
-  // }
 
   &.line::after {
     position: absolute;
@@ -114,16 +67,4 @@ $finish-color: #1890ff;
   &.step-line-wait::after {
     background-color: $line-wait-color;
   }
-
-  &.step-line-error::after {
-    background-color: $error-color;
-  }
-
-  // &.step-line-finish::after {
-  //   background-color: $finish-color;
-  // }
-
-  // &.step-line-process::after {
-  //   background-color: $line-wait-color;
-  // }
 }

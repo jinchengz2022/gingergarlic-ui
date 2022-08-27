@@ -1,15 +1,15 @@
 import React, { FC, FunctionComponentElement } from 'react';
 import classNames from 'classnames';
-
-import { Step } from './Step'
-
 export interface StepsProps {
   style?: React.CSSProperties;
+  /** 当前步骤 */
   current?: number;
   className?: string;
+  /** 步骤条方向 */
   direction?: 'vertical' | 'horizontal';
   defaultCurrent?: number;
   children?: React.ReactNode;
+  /** 调用时点击可改变步骤条 */
   onChange?: (current: number) => void;
 }
 
@@ -19,28 +19,37 @@ export const Steps: FC<StepsProps> = props => {
 
   const classes = classNames('steps', className, {});
 
-  const changeStep = (c: number) => {
+  const changeStep = (current: number) => {
     if (!onChange) return;
-    onChange(c + 1);
-    updateCurrent(c + 1);
+    onChange(current + 1);
+    updateCurrent(current + 1);
   }
 
-  const childrenNode = () => {
-    
-    return React.Children.map(children, (child, index) => {
-      
-      const childrenLen = React.Children.count(children);
-      const curNode = child as FunctionComponentElement<StepsProps & { index: number; childrenLen: number; changeStep: (c: number) => void; }>
-      const { name } = curNode.type;
-      if (name === 'Step') {
-        return React.cloneElement(curNode, {
-          ...curNode.props, defaultCurrent, index, childrenLen, current: stepCurrent, changeStep
-        })
-      } else {
-        console.error('Steps children must be Step Component!')
+  const childrenNode = () => React.Children.map(children, (child, index) => {
+    const childrenLen = React.Children.count(children);
+    const curNode = child as FunctionComponentElement<
+      StepsProps & {
+        index: number;
+        childrenLen: number;
+        changeStep: (c: number) => void;
       }
-    })
-  }
+    >
+    const { name } = curNode.type;
+    if (name === 'Step') {
+      return React.cloneElement(curNode, {
+        ...curNode.props,
+        defaultCurrent,
+        index,
+        childrenLen,
+        current: stepCurrent,
+        direction,
+        changeStep
+      })
+    } else {
+      console.error('Steps children must be Step Component!')
+    }
+  })
+
 
   return (
     <div className={classes} style={style}>
