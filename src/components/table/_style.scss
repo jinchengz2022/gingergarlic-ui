@@ -22,8 +22,9 @@
 }
 
 .table-thead-title {
+  font-weight: 600;
 
-  &::before {
+  &.table-thead-border::before {
     position: absolute;
     right: 0;
     top: 50%;

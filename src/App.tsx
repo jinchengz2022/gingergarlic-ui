@@ -18,7 +18,13 @@ function App() {
     },
     {
       dataIndex: 4,
-      title: 'inter'
+      title: 'inter',
+      render: (_: any, d: any) => (
+        <div>
+          <p>{d.name}</p>
+          <p>{d.age}</p>
+        </div>
+      )
     },
   ];
 

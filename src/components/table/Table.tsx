@@ -1,11 +1,13 @@
 import React from 'react'
 import classNames from 'classnames';
 
+export interface TableColumn {
+  dataIndex: string | number;
+  title: string;
+  render?: (tdData: any, trData: any) => React.ReactNode;
+}
 export interface TableProps {
-  column?: {
-    dataIndex: string | number;
-    title: string;
-  }[];
+  column?: TableColumn[];
   dataSource?: {
     key: string;
     [key: string]: any;
@@ -30,8 +32,8 @@ export const Table: React.FC<TableProps> = props => {
                 column?.map((col, index) => (
                   <td
                     key={col.dataIndex}
-                    className={classNames({
-                      'table-thead-title': column.length > index + 1
+                    className={classNames('table-thead-title', {
+                      'table-thead-border': column.length > index + 1
                     })}
                   >
                     {col.title}
@@ -53,7 +55,10 @@ export const Table: React.FC<TableProps> = props => {
                     })}
                   >
                     {
-                      data?.[col.title] ? data?.[col.title] : console.error('no match datasource')
+                      col.render?.(data?.[col.title], data) ?? (
+                        data?.[col.title] ? data?.[col.title] :
+                          console.error('no match datasource')
+                      )
                     }
                   </td>
                 ))
