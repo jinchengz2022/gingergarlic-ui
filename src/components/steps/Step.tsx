@@ -27,12 +27,6 @@ export const Step: FC<StepProps> = props => {
     changeStep
   } = props;
 
-  // const stepDescClasses = classNames('step-desc', {
-  //   'step-desc-error': state === 'error',
-  //   'step-desc-wait': index! + 1 > current!,
-  //   'step-desc-finish': index! + 1 < current!,
-  // })
-
   const stepTitleClasses = classNames('step-title', {
     'line': index! < childrenLen! - 1,
     'step-line-wait': index! + 1 > current!,

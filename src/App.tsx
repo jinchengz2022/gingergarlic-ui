@@ -1,19 +1,51 @@
 import React from 'react';
-import { Steps } from './components'
+import { Table } from './components'
 
 function App() {
-const p = (a: any) => {
-  console.log(a);
-  
-}
+
+  const tableColumns = [
+    {
+      dataIndex: 1,
+      title: 'name'
+    },
+    {
+      dataIndex: 2,
+      title: 'age'
+    },
+    {
+      dataIndex: 3,
+      title: 'sex'
+    },
+    {
+      dataIndex: 4,
+      title: 'inter'
+    },
+  ];
+
+  const source = [
+    {
+      key: '3',
+      name: 'lucy',
+      age: '11',
+      sex: 'man',
+      inter: 'basket'
+    },
+    {
+      key: '30',
+      name: 'candy',
+      age: '131',
+      sex: 'female',
+      inter: 'footer'
+    },
+  ]
+
   return (
     <div>
-      <Steps current={3} onChange={p}>
-        <Steps.Step title='first step' description='139139003332200313900333223322'/>
-        <Steps.Step title='second step' description='jfdsjfoidsjfiosdofh'/>
-        <Steps.Step title='three step' description='哈哈哈'/>
-        <Steps.Step title='four step' description='嘻嘻嘻'/>
-      </Steps>
+      <Table
+        tableTitle='xxx'
+        column={tableColumns}
+        dataSource={source}
+      />
     </div>
   );
 }

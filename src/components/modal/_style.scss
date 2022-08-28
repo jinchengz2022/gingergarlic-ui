@@ -1,38 +1,38 @@
-.modalvisible{
+.modalvisible {
     visibility: hidden;
 }
 
-.modalmasklayer{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+.modal-wrapper {
+    position: fixed;
+    background: #00000073;
+    inset: 0;
+    z-index: 999;
     height: 100%;
-    background:rgba(120,120,120,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.modalson{
+.modal-container {
+    position: relative;
+    top: 200px;
     width: 500px;
+    margin: 0 auto;
     background: #fff;
 }
-.modaltitle{
-    height: 50px;
-    border-bottom: 1px solid #ccc;
+
+.modal-header {
     display: flex;
     justify-content: space-between;
-}
-.modalcloseIcon{
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-}
-.mtitlestring{
-    height: 50px;
-    line-height: 50px;
+    align-items: center;
+    padding: 0 24px;
+    height: 48px;
+    border-bottom: 1px solid #ccc;
     font-size: 14px;
     font-weight: 500;
+}
+
+.modal-content {
+    padding: 0 24px;
+}
+
+.modal-footer {
+    padding: 0 24px;
 }
