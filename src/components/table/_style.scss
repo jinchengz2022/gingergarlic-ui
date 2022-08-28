@@ -1,0 +1,36 @@
+.table {
+  width: 100%;
+
+  thead {
+    background-color: #fafafa;
+  }
+
+  td {
+    position: relative;
+    padding: 16px;
+    border-bottom: 1px solid #0000000f;
+  }
+}
+
+.table-title {
+  padding: 16px;
+}
+
+
+.table-tbody-border {
+  border-right: 1px solid #0000000f;
+}
+
+.table-thead-title {
+
+  &::before {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    content: '';
+    width: 1px;
+    height: 1.6em;
+    background-color: #0000000f;
+  }
+}
