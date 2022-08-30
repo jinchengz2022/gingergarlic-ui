@@ -33,11 +33,11 @@
 .pagination-pre,
 .pagination-next {
   &.disabled {
-    background-color: rgb(238, 238, 238);
+    color: #d2d1d1;
 
     &:hover {
       border: 1px solid #d2d1d1;
-      color: #000;
+      color: #d2d1d1;
       cursor: not-allowed;
     }
   }

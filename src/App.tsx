@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from './components'
+import { Table, Pagination } from './components'
 
 function App() {
 
@@ -19,12 +19,12 @@ function App() {
     {
       dataIndex: 4,
       title: 'inter',
-      render: (_: any, d: any) => (
-        <div>
-          <p>{d.name}</p>
-          <p>{d.age}</p>
-        </div>
-      )
+      // render: (_: any, d: any) => (
+      //   <div>
+      //     <p>{d.name}</p>
+      //     <p>{d.age}</p>
+      //   </div>
+      // )
     },
   ];
 
@@ -47,11 +47,19 @@ function App() {
 
   return (
     <div>
-      <Table
-        tableTitle='xxx'
-        column={tableColumns}
-        dataSource={source}
-      />
+      <div style={{ width: 600 }}>
+        <Table
+          tableTitle='xxx'
+          column={tableColumns}
+          dataSource={source}
+          rowSelection={{
+            type: 'radio',
+            onSelect: (_, row) => {console.log(row)}
+          }}
+        />
+        <Pagination total={100}/>
+      </div>
+
     </div>
   );
 }

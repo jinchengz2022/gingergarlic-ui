@@ -21,6 +21,21 @@
   border-right: 1px solid #0000000f;
 }
 
+.table-data-rows {
+
+  &:hover {
+    background-color: #fafafa;
+  }
+
+  &.table-rows-selectd {
+    background-color: #e6f7ff;
+  }
+
+  .table-tbody-radio {
+    padding-left: 16px;
+  }
+}
+
 .table-thead-title {
   font-weight: 600;
 
@@ -34,4 +49,7 @@
     height: 1.6em;
     background-color: #0000000f;
   }
+
+  
 }
+
