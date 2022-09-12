@@ -1,24 +1,77 @@
 import React from "react";
 import classnames from 'classnames'
 
+import { Button } from '../button'
+import { useListennerEvent } from '../../utils/useListennerEvent'
+
 interface ModalProps {
     visible?: boolean;
     title?: string;
+    children?: React.ReactNode;
+    footer?: React.ReactNode;
+    okText?: string;
+    closeText?: string;
+    width?: number;
+    maskClosable?: boolean;
+    onClose?: () => void;
+    onOk?: () => void;
 }
 
-export const Modal: React.FC<ModalProps> = (props) => {
-    const { visible, title } = props;
+export const Modal: React.FC<ModalProps> = ({
+    visible = false,
+    title,
+    children,
+    footer,
+    okText = '确认',
+    closeText = '取消',
+    width = 520,
+    maskClosable = false,
+    onClose,
+    onOk
+}) => {
+    const maskRef = React.useRef<any>();
+    useListennerEvent(maskRef, 'keydown', (e) => {
+        if (e.code === 'Escape' && maskClosable) {
+            onClose?.();
+        }
+    })
+
+    const localFooter = (
+        footer ?? (
+            <>
+                <Button style={{ marginRight: 12, padding: '4px 24px' }} onClick={onClose}>
+                    {closeText ?? '取消'}
+                </Button>
+                <Button btnType='primary' style={{ padding: '4px 24px' }} onClick={onOk}>
+                    {okText ?? '确认'}
+                </Button>
+            </>
+        )
+    )
+
     return (
-        <div className={classnames('modal-wrapper', { modalvisible: !visible })}>
-            <div className={classnames('modal-container')}>
-                <div className={classnames('modal-header')}>
-                    <span className={classnames('modal-title')}>{title ?? 'Modal确认框'}</span>
-                    <span className={classnames('modal-close-icon')}>x</span>
+        visible ? (
+            <div
+                className={classnames('modal-wrapper', { modalvisible: !visible })}
+                ref={maskRef}
+            >
+                <div
+                    style={{ width }}
+                    className={classnames('modal-container')}
+                >
+                    <div className={classnames('modal-close-icon')} onClick={onClose}>x</div>
+                    <div className={classnames('modal-header')}>
+                        {title && (
+                            <span className={classnames('modal-title')}>{title}</span>
+                        )}
+                    </div>
+                    <div className={classnames('modal-content')}>{children}</div>
+                    <div className={classnames('modal-footer')}>
+                        {localFooter}
+                    </div>
                 </div>
-                <div className={classnames('modal-content')}>content</div>
-                <div className={classnames('modal-footer')}>footer</div>
             </div>
-        </div>
+        ) : <></>
     )
 }
 

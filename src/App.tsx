@@ -1,7 +1,8 @@
 import React from 'react';
-import { Table, Pagination } from './components'
+import { Button, Modal } from './components'
 
 function App() {
+  const [visible, updateVisible] = React.useState(false)
 
   const tableColumns = [
     {
@@ -47,7 +48,7 @@ function App() {
 
   return (
     <div>
-      <div style={{ width: 600 }}>
+      {/* <div style={{ width: 600 }}>
         <Table
           tableTitle='xxx'
           column={tableColumns}
@@ -58,8 +59,11 @@ function App() {
           }}
         />
         <Pagination total={100}/>
-      </div>
-
+      </div> */}
+      <Modal visible={visible} title='123' onClose={() => updateVisible(false)}>
+        <h1>hello!</h1>
+      </Modal>
+      <Button onClick={() => updateVisible(true)}>showModal</Button>
     </div>
   );
 }

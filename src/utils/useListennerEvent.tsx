@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
-export const useListennerEvent = (ref: any, event: keyof GlobalEventHandlersEventMap, fn: () => void) => {
+export const useListennerEvent = <K extends keyof GlobalEventHandlersEventMap>(ref: any, event: K, fn: (e: any) => void) => {
   useEffect(() => {
-    const listener: any = (e: MouseEvent) => {
+    const listener: any = (e: any) => {
       if (!ref || ref.current.contains(e.target)) return;
-      fn();
+      fn(e);
     }
 
     document.addEventListener(event, listener);

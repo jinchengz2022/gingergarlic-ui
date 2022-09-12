@@ -29,9 +29,6 @@ export const Button: React.FC<ButtonProps> = (props) => {
     ...restProps
   } = props;
 
-  console.log(props, 'props');
-  
-
   const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
