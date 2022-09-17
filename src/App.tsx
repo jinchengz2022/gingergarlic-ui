@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal } from './components'
+import { Button, Modal, DatePicker, Select } from './components'
 
 function App() {
   const [visible, updateVisible] = React.useState(false)
@@ -61,9 +61,11 @@ function App() {
         <Pagination total={100}/>
       </div> */}
       <Modal visible={visible} title='123' onClose={() => updateVisible(false)}>
-        <h1>hello!</h1>
+        <DatePicker/>
+        <h1>h</h1>
       </Modal>
       <Button onClick={() => updateVisible(true)}>showModal</Button>
+      
     </div>
   );
 }

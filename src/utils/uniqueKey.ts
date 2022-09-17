@@ -1,0 +1,1 @@
+export const uniqueKey = () => String(new Date().getTime().valueOf()) + String(Math.random()).slice(0, 6)

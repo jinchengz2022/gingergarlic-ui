@@ -25,13 +25,13 @@ export const Modal: React.FC<ModalProps> = ({
     okText = '确认',
     closeText = '取消',
     width = 520,
-    maskClosable = false,
+    maskClosable = true,
     onClose,
     onOk
 }) => {
     const maskRef = React.useRef<any>();
     useListennerEvent(maskRef, 'keydown', (e) => {
-        if (e.code === 'Escape' && maskClosable) {
+            if (e.code === 'Escape' && maskClosable) {
             onClose?.();
         }
     })

@@ -38,15 +38,15 @@ export const Upload: FC<UploadProps> = (props) => {
   const fileRef = React.useRef<HTMLInputElement>(null);
 
   const updateList = (file: FileList) => {
-    updateFileList((pre) => {
-      return pre.map((f) => {
+    updateFileList((pre) => 
+      pre.map((f) => {
         if (f.uid === file.uid) {
           return file;
         } else {
           return f;
         }
       })
-    })
+    )
   }
 
   const selectFile = () => {

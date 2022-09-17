@@ -1,0 +1,66 @@
+.date-picker-container {
+  width: 200px;
+
+  .date-picker {
+    position: absolute;
+    z-index: 99;
+    width: 300px;
+    margin-top: 4px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+  }
+
+  .date-picker-header {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid rgba(221, 218, 218, 0.3);
+
+    div {
+      span {
+        color: rgb(221, 218, 218);
+        transition: color .3s;
+
+        &:hover {
+          color: rgba(23, 23, 23, 0.8);
+        }
+      }
+    }
+  }
+
+  .date-picker-content {
+    padding: 8px;
+  }
+
+  .date-picker-footer {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0;
+    border-top: 1px solid rgba(221, 218, 218, 0.3);
+
+    span {
+      font-size: 14px;
+      color: #1890ff;
+      cursor: pointer;
+    }
+  }
+}
+
+table {
+  width: 100%;
+  text-align: center;
+
+  td {
+    padding: 8px;
+    transition: all .3s;
+
+    &:hover {
+      background-color: rgba(221, 218, 218, 0.3);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+}
