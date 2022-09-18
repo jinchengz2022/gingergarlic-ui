@@ -71,7 +71,7 @@ export const getMonthDays = (year: number, month: number) => {
 
   //当为12月的时候年份需要加1  
   //月份需要更新为0 也就是下一年的第一个月  
-  if (relativeMonth == 11) {
+  if (relativeMonth === 11) {
     relativeYear++;
     relativeMonth = 0;
   } else {
@@ -214,20 +214,36 @@ export const getPreviousYear = (year: number = 1) => {
   return startStop;
 };
 
-export // 本月+上月+下月的天数
-const curMonthDayAry = (preMonthLastDay: number, curMonthLastDay: number, curMonthFirstWeek: number, curMonthLastWeek: number) => {
-  return new Array(curMonthLastDay + curMonthFirstWeek - curMonthLastWeek + 6)
+/**
+* 得到某年某月的星期数日期
+* **/
+export const getYearMonthFirstWeek = (year: number, month: number) => {
+  return new Date(year, month).getDay() || 7;
+};
+export const getYearMonthLastWeek = (year: number, month: number) => {
+  return new Date(year, month, getMonthDays(year, month)).getDay() || 7;
+}
+
+// 本月日期
+export const curMonthDayAry = (year: number, month: number) => {
+  const curMonthWeek = getYearMonthFirstWeek(year, month);
+  const preMonthWeek = getYearMonthLastWeek(year, month - 1);
+  return new Array(curMonthWeek > 6 ? 42 : 35)
     .fill('')
     .map((_, index) => {
-      // 本月之前的天数
-      if ((index + 1) < curMonthFirstWeek) {
-        return "_" + String(preMonthLastDay - curMonthFirstWeek + index + 2)
+      // 本月之前的日期
+      if (curMonthWeek !== 1 && ((index + 1) < curMonthWeek)) {
+        return "_" + String((getMonthDays(year, month - 1) + index + 1) - preMonthWeek)
       }
-      // 本月之后的天数
-      if ((index + 1) > (curMonthLastDay + curMonthFirstWeek - 1)) {
-        return "_" + String((index + 1) - (curMonthLastDay + curMonthFirstWeek - 1))
+      // 本月之后的日期
+      const nextDay = curMonthWeek === 1 ? getMonthDays(year, month) : preMonthWeek + getMonthDays(year, month);
+      if ((index + 1) > nextDay) {
+        return "_" + String(index + 1 - nextDay)
       }
-      // 本月的天数
-      return String(index - 2);
+      if (curMonthWeek === 1 && !((index + 1) > nextDay)) {
+        return String(index + 1);
+      }
+      // 本月的日期
+      return String(index - preMonthWeek + 1);
     })
 }
