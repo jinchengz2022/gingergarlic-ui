@@ -30,11 +30,16 @@ export const Modal: React.FC<ModalProps> = ({
     onOk
 }) => {
     const maskRef = React.useRef<any>();
+    // 监听按下esc键关闭
     useListennerEvent(maskRef, 'keydown', (e) => {
-            if (e.code === 'Escape' && maskClosable) {
+        if (e.code === 'Escape' && maskClosable) {
             onClose?.();
         }
     })
+
+    // 监听点击蒙层
+    // useListennerEvent(maskRef, 'click', (e) => { 
+    // })
 
     const localFooter = (
         footer ?? (

@@ -38,6 +38,9 @@
     line-height: 56px;
     text-align: center;
     font-size: 18px;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .modal-content {

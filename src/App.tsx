@@ -1,50 +1,8 @@
 import React from 'react';
-import { Button, Modal, DatePicker, Select } from './components'
+import { Button, Modal, Tabs, TabsPane } from './components'
 
 function App() {
   const [visible, updateVisible] = React.useState(false)
-
-  const tableColumns = [
-    {
-      dataIndex: 1,
-      title: 'name'
-    },
-    {
-      dataIndex: 2,
-      title: 'age'
-    },
-    {
-      dataIndex: 3,
-      title: 'sex'
-    },
-    {
-      dataIndex: 4,
-      title: 'inter',
-      // render: (_: any, d: any) => (
-      //   <div>
-      //     <p>{d.name}</p>
-      //     <p>{d.age}</p>
-      //   </div>
-      // )
-    },
-  ];
-
-  const source = [
-    {
-      key: '3',
-      name: 'lucy',
-      age: '11',
-      sex: 'man',
-      inter: 'basket'
-    },
-    {
-      key: '30',
-      name: 'candy',
-      age: '131',
-      sex: 'female',
-      inter: 'footer'
-    },
-  ]
 
   return (
     <div>
@@ -60,12 +18,20 @@ function App() {
         />
         <Pagination total={100}/>
       </div> */}
-      <Modal visible={visible} title='123' onClose={() => updateVisible(false)}>
-        <DatePicker/>
-        <h1>h</h1>
+      {visible && (
+        <Modal visible={visible} title='123' onClose={() => updateVisible(false)}>
+        <h1>one</h1>
       </Modal>
-      <Button onClick={() => updateVisible(true)}>showModal</Button>
-      
+      )}
+      {/* <Button onClick={() => updateVisible(true)}>showModal</Button> */}
+      <Tabs>
+        <TabsPane tabKey='dasdas' title='test1'>
+          <p>1111</p>
+        </TabsPane>
+        <TabsPane tabKey={2} title='test2'>
+        <p>2222</p>
+        </TabsPane>
+      </Tabs>
     </div>
   );
 }
